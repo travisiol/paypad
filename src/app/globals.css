@@ -1,0 +1,531 @@
+@import "tailwindcss";
+
+/*
+ * PAYPAD — machine-bay art direction.
+ *
+ * The page is a piece of equipment on a workbench: powder-coated steel ground,
+ * dark instrument blocks bolted onto it, stencilled labels, square corners,
+ * bolts where a bolt would actually be. Deliberately not the sibling projects
+ * in this account — one is a black trading terminal, one is a cream share
+ * certificate; this one is a machine, because a launchpad is a machine.
+ *
+ * Colour is a semantic and is never decoration:
+ *
+ *   halt   interlock open, not deployed, held, refused — the safety colour.
+ *          Pre-launch this site is largely halt, which is the honest state.
+ *   live   interlock closed, real, reading from the chain.
+ *   ink    everything else. No colour means no state.
+ *
+ * Every colour pair below was measured, not eyeballed. The vivid orange is a
+ * fill colour: as text on steel it lands at 2.7:1, so text uses `halt-ink`
+ * (4.9:1) on steel and `halt-bright` (5.8:1) on the dark panels. Same for the
+ * green. The dim/faint alphas are set where they were measured to clear 4.5:1
+ * at the 10px label size they are actually used at.
+ */
+:root {
+  --steel: #c7c6c1;
+  --steel-2: #d5d4cf;
+  --steel-3: #b6b5af;
+
+  --ink: #131316;
+  --ink-dim: rgba(19, 19, 22, 0.8);
+  --ink-faint: rgba(19, 19, 22, 0.68);
+
+  --rule: rgba(19, 19, 22, 0.16);
+  --rule-2: rgba(19, 19, 22, 0.34);
+
+  --panel: #17181b;
+  --panel-2: #1f2126;
+  --panel-ink: #e7e6e1;
+  --panel-dim: rgba(231, 230, 225, 0.72);
+  --panel-faint: rgba(231, 230, 225, 0.55);
+  --panel-rule: rgba(231, 230, 225, 0.16);
+
+  --halt: #d93d0e;
+  --halt-ink: #93230a;
+  --halt-bright: #ff5a2b;
+  --halt-soft: rgba(217, 61, 14, 0.1);
+
+  --live: #0b5730;
+  --live-bright: #35c47c;
+  --live-soft: rgba(11, 87, 48, 0.1);
+}
+
+@theme inline {
+  --color-steel: var(--steel);
+  --color-steel-2: var(--steel-2);
+  --color-steel-3: var(--steel-3);
+
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-rule: var(--rule);
+  --color-rule-2: var(--rule-2);
+
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-panel-ink: var(--panel-ink);
+  --color-panel-dim: var(--panel-dim);
+  --color-panel-faint: var(--panel-faint);
+  --color-panel-rule: var(--panel-rule);
+
+  --color-halt: var(--halt);
+  --color-halt-ink: var(--halt-ink);
+  --color-halt-bright: var(--halt-bright);
+  --color-halt-soft: var(--halt-soft);
+
+  --color-live: var(--live);
+  --color-live-bright: var(--live-bright);
+  --color-live-soft: var(--live-soft);
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+* {
+  border-color: var(--rule);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--steel);
+}
+
+body {
+  background: var(--steel);
+  color: var(--ink);
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(217, 61, 14, 0.24);
+}
+
+:focus-visible {
+  outline: 2px solid var(--halt);
+  outline-offset: 2px;
+  border-radius: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+.skip-link:focus {
+  /* fixed, not absolute: reached mid-page it still lands in the viewport. */
+  position: fixed;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--steel-2);
+  padding: 0.5rem 0.875rem;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/*
+ * Tailwind v4: custom classes MUST live inside @layer components, or they are
+ * emitted after the utilities layer and silently beat every utility touching
+ * the same property.
+ *
+ * And they must not be NAMED like a utility either. The dark equipment panel
+ * below started life as `.block`, which every `className="… block …"` in the
+ * codebase then picked up: `display:block` still came from the utility, but the
+ * component's background and colour leaked in, so form labels rendered as solid
+ * black bars. It is `.rig` for that reason — check a new class name against
+ * Tailwind's utilities before adding it here.
+ */
+@layer components {
+  .mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  /* Stencilled equipment lettering: the display face, tight and wide-tracked. */
+  .stencil {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .label {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .label-on-panel {
+    color: var(--panel-faint);
+  }
+
+  /* Numbers line up in columns or they are not numbers. */
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /*
+   * A block of equipment: dark face, hard edge, no radius. The 1px light line
+   * along the top is the highlight a machined edge catches, and it is what
+   * keeps a black rectangle from reading as a hole in the page.
+   */
+  .rig {
+    background: var(--panel);
+    color: var(--panel-ink);
+    border: 1px solid #000;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.09),
+      0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  /* The same object, in steel rather than painted black. */
+  .plate {
+    background: var(--steel-2);
+    border: 1px solid var(--rule-2);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .plate-head,
+  .rig-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 0.875rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .plate-head {
+    border-bottom: 1px solid var(--rule-2);
+    color: var(--ink-faint);
+    background: var(--steel-3);
+  }
+
+  .rig-head {
+    border-bottom: 1px solid var(--panel-rule);
+    color: var(--panel-faint);
+    background: var(--panel-2);
+  }
+
+  /*
+   * Four bolts, one per corner, drawn as background gradients rather than
+   * four elements — they are trim, and trim should not be in the a11y tree.
+   */
+  .bolted {
+    background-image:
+      radial-gradient(circle at 9px 9px, var(--rule-2) 0 1.5px, transparent 2px),
+      radial-gradient(
+        circle at calc(100% - 9px) 9px,
+        var(--rule-2) 0 1.5px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at 9px calc(100% - 9px),
+        var(--rule-2) 0 1.5px,
+        transparent 2px
+      ),
+      radial-gradient(
+        circle at calc(100% - 9px) calc(100% - 9px),
+        var(--rule-2) 0 1.5px,
+        transparent 2px
+      );
+  }
+
+  /*
+   * Hazard stripes. Rationed hard: they appear on the disarmed launch control
+   * and nowhere else, because they mean one thing — this is roped off.
+   */
+  .hazard {
+    background-image: repeating-linear-gradient(
+      135deg,
+      var(--halt) 0 12px,
+      #1a1a1c 12px 24px
+    );
+  }
+
+  /* Brushed steel: two near-invisible line sets, not a texture image. */
+  .brushed {
+    background-image:
+      repeating-linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.16) 0 1px,
+        transparent 1px 3px
+      ),
+      repeating-linear-gradient(
+        to right,
+        rgba(19, 19, 22, 0.045) 0 1px,
+        transparent 1px 7px
+      );
+  }
+
+  /* The line the stations hang off: a rail down the left of the page. */
+  .rail {
+    position: relative;
+  }
+
+  .rail::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--rule-2);
+  }
+
+  /* Status lamp. Colour AND a label always — never colour alone. */
+  .lamp {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3) inset;
+  }
+
+  .field {
+    width: 100%;
+    background: var(--steel-2);
+    border: 1px solid var(--rule-2);
+    border-radius: 0;
+    padding: 0.625rem 0.75rem;
+    color: var(--ink);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    box-shadow: inset 0 1px 2px rgba(19, 19, 22, 0.12);
+  }
+
+  .field::placeholder {
+    color: var(--ink-faint);
+  }
+
+  .field:hover {
+    border-color: var(--halt-ink);
+  }
+
+  .field-invalid {
+    border-color: var(--halt);
+    background: var(--halt-soft);
+  }
+
+  /* A machine control: square, heavy, and it moves when you press it. */
+  .control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid #000;
+    background: var(--panel);
+    color: var(--panel-ink);
+    padding: 0.75rem 1.25rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 2px 0 rgba(19, 19, 22, 0.35);
+    transition:
+      transform 0.06s ease-out,
+      box-shadow 0.06s ease-out;
+  }
+
+  .control:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .control:disabled {
+    cursor: not-allowed;
+  }
+
+  /* The slider is a machine detent, not a browser default. */
+  .detent {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 22px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .detent::-webkit-slider-runnable-track {
+    height: 6px;
+    background: var(--steel-3);
+    border: 1px solid var(--rule-2);
+  }
+
+  .detent::-moz-range-track {
+    height: 6px;
+    background: var(--steel-3);
+    border: 1px solid var(--rule-2);
+  }
+
+  .detent::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -7px;
+    width: 14px;
+    height: 20px;
+    background: var(--panel);
+    border: 1px solid #000;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .detent::-moz-range-thumb {
+    width: 14px;
+    height: 20px;
+    border-radius: 0;
+    background: var(--panel);
+    border: 1px solid #000;
+  }
+
+  /* FAQ disclosure. <details> so it works with JavaScript switched off. */
+  .qa > summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 1rem 0;
+  }
+
+  .qa > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .qa > summary::after {
+    content: "+";
+    margin-left: auto;
+    color: var(--halt-ink);
+    font-family: var(--font-mono), monospace;
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .qa[open] > summary::after {
+    content: "–";
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+
+.animate-flow {
+  animation: flow 1.8s linear infinite;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Entrance for above-the-fold content: CSS only, runs on load, no JS. */
+.rise {
+  animation: rise 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * Scroll reveal, scroll-driven and CSS-only — no observer, no script, no class
+ * toggling, so nothing that can leave content stuck invisible. Gated behind
+ * @supports: where `animation-timeline` is unsupported the rule never applies
+ * and content simply renders, which is the correct fallback. (React 19 does
+ * not execute a <script> rendered inside a component, and mutating <html> from
+ * one desynchronises hydration — so no JS variant of this.)
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 24%;
+    }
+  }
+}
+
+/*
+ * Print, and any renderer that evaluates a scroll timeline at progress zero
+ * (screenshot services, some previewers), would otherwise paint every revealed
+ * section at opacity 0 — a blank page. The reveal is decoration; the content
+ * is not.
+ */
+@media print {
+  [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .animate-marquee,
+  .animate-flow,
+  .animate-blink {
+    animation: none;
+  }
+}
