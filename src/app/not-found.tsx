@@ -8,8 +8,8 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="mx-auto flex w-full max-w-[1180px] flex-col items-start px-4 py-32 sm:px-6">
-      <p className="label text-halt-ink">404</p>
-      <h1 className="stencil mt-4 text-[clamp(2.4rem,8vw,5rem)] leading-none">
+      <p className="label text-lime-deep">404</p>
+      <h1 className="display mt-4 text-[clamp(2.4rem,8vw,5rem)] leading-none">
         No such station
       </h1>
       <p className="mt-5 max-w-[52ch] text-[14px] leading-relaxed text-ink-dim">
@@ -17,7 +17,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="control mt-8"
+        className="pill pill-dark mt-8"
       >
         <span aria-hidden>←</span> Back to the pad
       </Link>

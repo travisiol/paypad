@@ -22,7 +22,7 @@ export default function LaunchPage() {
               Factory armed
             </Chip>
           ) : (
-            <Chip tone="halt" lamp blink>
+            <Chip tone="held" lamp>
               Launches held
             </Chip>
           )

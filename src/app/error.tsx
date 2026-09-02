@@ -9,8 +9,8 @@ export default function Error({
 }) {
   return (
     <div className="mx-auto flex w-full max-w-[1180px] flex-col items-start px-4 py-32 sm:px-6">
-      <p className="label text-halt-ink">Fault</p>
-      <h1 className="stencil mt-4 text-[clamp(2.4rem,8vw,5rem)] leading-none">
+      <p className="label text-lime-deep">Fault</p>
+      <h1 className="display mt-4 text-[clamp(2.4rem,8vw,5rem)] leading-none">
         Something broke
       </h1>
       <p className="mt-5 max-w-[52ch] text-[14px] leading-relaxed text-ink-dim">
@@ -22,7 +22,7 @@ export default function Error({
           digest {error.digest}
         </p>
       )}
-      <button type="button" onClick={reset} className="control mt-8">
+      <button type="button" onClick={reset} className="pill pill-dark mt-8">
         Try again
       </button>
     </div>

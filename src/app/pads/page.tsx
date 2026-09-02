@@ -25,7 +25,7 @@ export default function PadsPage() {
               Reading factory
             </Chip>
           ) : (
-            <Chip tone="halt" lamp blink>
+            <Chip tone="held" lamp>
               No factory
             </Chip>
           )
@@ -41,9 +41,9 @@ export default function PadsPage() {
       <PadRegistry />
 
       <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
-        <div className="plate bolted p-5">
+        <div className="glass p-6">
           <p className="label">Terms every pad in this registry was built on</p>
-          <dl className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <dl className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
             {[
               {
                 label: "Protocol share",
@@ -61,7 +61,7 @@ export default function PadsPage() {
               </div>
             ))}
           </dl>
-          <p className="mt-5 border-t border-rule pt-4 text-[12px] leading-relaxed text-ink-faint">
+          <p className="mt-6 border-t border-rule pt-5 text-[12px] leading-relaxed text-ink-faint">
             Read these off the factory rather than off this page — it exposes
             both as public functions for exactly that reason. A front end can
             print anything.
@@ -73,7 +73,7 @@ export default function PadsPage() {
       <div className="mt-8">
         <Link
           href="/launch"
-          className="control border-halt bg-halt text-white"
+          className="pill pill-lime"
         >
           Launch one
         </Link>

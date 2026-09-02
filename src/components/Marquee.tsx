@@ -17,7 +17,7 @@ export function Marquee() {
   const run = [...STEPS, ...STEPS, ...STEPS, ...STEPS];
 
   return (
-    <div className="overflow-hidden border-b border-rule-2 bg-panel py-2.5">
+    <div className="overflow-hidden border-y border-rule bg-white/40 py-3">
       <div
         className="animate-marquee flex w-max items-center gap-8 pr-8"
         aria-hidden
@@ -27,10 +27,10 @@ export function Marquee() {
             {run.map((step, index) => (
               <span
                 key={`${copy}-${index}`}
-                className="mono flex items-center gap-8 text-[11px] tracking-[0.24em] whitespace-nowrap text-panel-faint uppercase"
+                className="mono flex items-center gap-8 text-[11px] tracking-[0.22em] whitespace-nowrap text-ink-faint uppercase"
               >
                 {step}
-                <span className="text-halt-bright">/</span>
+                <span className="text-lime-deep">✳</span>
               </span>
             ))}
           </div>

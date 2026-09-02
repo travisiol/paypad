@@ -1,60 +1,66 @@
 @import "tailwindcss";
 
 /*
- * PAYPAD — machine-bay art direction.
+ * PAYPAD — glass / chrome art direction.
  *
- * The page is a piece of equipment on a workbench: powder-coated steel ground,
- * dark instrument blocks bolted onto it, stencilled labels, square corners,
- * bolts where a bolt would actually be. Deliberately not the sibling projects
- * in this account — one is a black trading terminal, one is a cream share
- * certificate; this one is a machine, because a launchpad is a machine.
+ * White paper pooling into lime at the corners, hairline construction lines
+ * ruled across it, and extruded chrome-glass objects sitting on top. Soft,
+ * bright, technical: a specification drawing with real objects laid on it.
  *
  * Colour is a semantic and is never decoration:
  *
- *   halt   interlock open, not deployed, held, refused — the safety colour.
- *          Pre-launch this site is largely halt, which is the honest state.
- *   live   interlock closed, real, reading from the chain.
- *   ink    everything else. No colour means no state.
+ *   lime   real, deployed, closed, reading from the chain. The brand colour
+ *          is *earned* — pre-launch almost nothing on this site is green, and
+ *          that is the honest state of the project.
+ *   chrome held, not deployed, open, undecided. Grey is not a warning colour,
+ *          so every held state also says so in words, never in colour alone.
+ *   ink    everything else.
  *
- * Every colour pair below was measured, not eyeballed. The vivid orange is a
- * fill colour: as text on steel it lands at 2.7:1, so text uses `halt-ink`
- * (4.9:1) on steel and `halt-bright` (5.8:1) on the dark panels. Same for the
- * green. The dim/faint alphas are set where they were measured to clear 4.5:1
- * at the 10px label size they are actually used at.
+ * Every pair below was measured against BOTH grounds this page has — plain
+ * white and the greenest corner of the wash — and the faint tones are set
+ * where they clear 4.5:1 on the green, which is the harder of the two.
  */
 :root {
-  --steel: #c7c6c1;
-  --steel-2: #d5d4cf;
-  --steel-3: #b6b5af;
+  --paper: #ffffff;
+  --wash: #f4fbe8;
+  --lime-pale: #e8fbba;
+  --lime: #d5f78c;
+  --lime-deep: #3f6b0a;
 
-  --ink: #131316;
-  --ink-dim: rgba(19, 19, 22, 0.8);
-  --ink-faint: rgba(19, 19, 22, 0.68);
+  --ink: #2e3132;
+  --ink-dim: #4a4f50;
+  --ink-faint: #636967;
 
-  --rule: rgba(19, 19, 22, 0.16);
-  --rule-2: rgba(19, 19, 22, 0.34);
+  --rule: rgba(46, 49, 50, 0.12);
+  --rule-2: rgba(46, 49, 50, 0.22);
+  /* The construction lines are drawn lighter than any border: they are the
+     drawing the page sits on, not part of any object on it. */
+  --draft: rgba(46, 49, 50, 0.09);
 
-  --panel: #17181b;
-  --panel-2: #1f2126;
-  --panel-ink: #e7e6e1;
-  --panel-dim: rgba(231, 230, 225, 0.72);
-  --panel-faint: rgba(231, 230, 225, 0.55);
-  --panel-rule: rgba(231, 230, 225, 0.16);
+  --chrome-1: #ffffff;
+  --chrome-2: #eef1ef;
+  --chrome-3: #cfd6d2;
+  --chrome-4: #a7b1ab;
+  --chrome-5: #78847d;
 
-  --halt: #d93d0e;
-  --halt-ink: #93230a;
-  --halt-bright: #ff5a2b;
-  --halt-soft: rgba(217, 61, 14, 0.1);
+  --glass: rgba(255, 255, 255, 0.66);
+  --glass-edge: rgba(255, 255, 255, 0.92);
+  --glass-shadow: 0 18px 48px -24px rgba(52, 66, 36, 0.34);
 
-  --live: #0b5730;
-  --live-bright: #35c47c;
-  --live-soft: rgba(11, 87, 48, 0.1);
+  --slate: #26292a;
+  --slate-2: #33383a;
+  --slate-ink: #f4f6f2;
+  --slate-dim: rgba(244, 246, 242, 0.74);
+  --slate-faint: rgba(244, 246, 242, 0.56);
+  --slate-rule: rgba(244, 246, 242, 0.16);
 }
 
 @theme inline {
-  --color-steel: var(--steel);
-  --color-steel-2: var(--steel-2);
-  --color-steel-3: var(--steel-3);
+  --color-paper: var(--paper);
+  --color-wash: var(--wash);
+  --color-lime-pale: var(--lime-pale);
+  --color-lime: var(--lime);
+  --color-lime-deep: var(--lime-deep);
 
   --color-ink: var(--ink);
   --color-ink-dim: var(--ink-dim);
@@ -62,25 +68,23 @@
 
   --color-rule: var(--rule);
   --color-rule-2: var(--rule-2);
+  --color-draft: var(--draft);
 
-  --color-panel: var(--panel);
-  --color-panel-2: var(--panel-2);
-  --color-panel-ink: var(--panel-ink);
-  --color-panel-dim: var(--panel-dim);
-  --color-panel-faint: var(--panel-faint);
-  --color-panel-rule: var(--panel-rule);
+  --color-chrome-2: var(--chrome-2);
+  --color-chrome-3: var(--chrome-3);
+  --color-chrome-4: var(--chrome-4);
+  --color-chrome-5: var(--chrome-5);
 
-  --color-halt: var(--halt);
-  --color-halt-ink: var(--halt-ink);
-  --color-halt-bright: var(--halt-bright);
-  --color-halt-soft: var(--halt-soft);
+  --color-slate: var(--slate);
+  --color-slate-2: var(--slate-2);
+  --color-slate-ink: var(--slate-ink);
+  --color-slate-dim: var(--slate-dim);
+  --color-slate-faint: var(--slate-faint);
+  --color-slate-rule: var(--slate-rule);
 
-  --color-live: var(--live);
-  --color-live-bright: var(--live-bright);
-  --color-live-soft: var(--live-soft);
-
-  --font-display: "Archivo", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-display: "Inter Tight", ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
 * {
@@ -89,24 +93,48 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--steel);
+  background: var(--paper);
 }
 
+/*
+ * The wash. Fixed so it behaves like light in the room rather than a texture
+ * that scrolls past: lime pools in the bottom corners and the page stays
+ * paper-white where the words are.
+ */
 body {
-  background: var(--steel);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(
+      100% 80% at 100% 100%,
+      rgba(213, 247, 140, 0.62) 0%,
+      rgba(213, 247, 140, 0) 58%
+    ),
+    radial-gradient(
+      85% 62% at 0% 100%,
+      rgba(213, 247, 140, 0.3) 0%,
+      rgba(213, 247, 140, 0) 55%
+    ),
+    radial-gradient(
+      60% 45% at 92% 0%,
+      rgba(232, 251, 186, 0.42) 0%,
+      rgba(232, 251, 186, 0) 60%
+    );
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.011em;
 }
 
 ::selection {
-  background: rgba(217, 61, 14, 0.24);
+  background: rgba(213, 247, 140, 0.85);
+  color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--halt);
-  outline-offset: 2px;
-  border-radius: 0;
+  outline: 2px solid var(--lime-deep);
+  outline-offset: 3px;
+  border-radius: 999px;
 }
 
 .skip-link {
@@ -121,11 +149,12 @@ body {
   left: 0.75rem;
   top: 0.75rem;
   z-index: 100;
-  background: var(--ink);
-  color: var(--steel-2);
-  padding: 0.5rem 0.875rem;
+  background: var(--slate);
+  color: var(--slate-ink);
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
   font-size: 11px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -134,35 +163,35 @@ body {
  * emitted after the utilities layer and silently beat every utility touching
  * the same property.
  *
- * And they must not be NAMED like a utility either. The dark equipment panel
- * below started life as `.block`, which every `className="… block …"` in the
- * codebase then picked up: `display:block` still came from the utility, but the
- * component's background and colour leaked in, so form labels rendered as solid
- * black bars. It is `.rig` for that reason — check a new class name against
- * Tailwind's utilities before adding it here.
+ * And they must not be NAMED like a utility either. An earlier pass called the
+ * panel class `.block`, which every `className="… block …"` then picked up —
+ * `display:block` still came from the utility, but the panel's background and
+ * colour leaked in, and form labels rendered as solid bars. Check any new name
+ * against Tailwind's utilities before adding it here.
  */
 @layer components {
   .mono {
     font-family: var(--font-mono), ui-monospace, monospace;
+    font-feature-settings: "ss01" 1;
   }
 
-  /* Stencilled equipment lettering: the display face, tight and wide-tracked. */
-  .stencil {
+  /* Display type: tight, mid-weight, optically kerned down at large sizes. */
+  .display {
     font-weight: 600;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
   }
 
   .label {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 10px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--ink-faint);
   }
 
-  .label-on-panel {
-    color: var(--panel-faint);
+  .label-on-slate {
+    color: var(--slate-faint);
   }
 
   /* Numbers line up in columns or they are not numbers. */
@@ -172,105 +201,246 @@ body {
   }
 
   /*
-   * A block of equipment: dark face, hard edge, no radius. The 1px light line
-   * along the top is the highlight a machined edge catches, and it is what
-   * keeps a black rectangle from reading as a hole in the page.
+   * A pane of glass. Frosted, edge-lit along the top, floating just off the
+   * page. `backdrop-filter` is progressive enhancement — where it is missing
+   * the 66% white still reads as a card, so nothing depends on it.
    */
-  .rig {
-    background: var(--panel);
-    color: var(--panel-ink);
-    border: 1px solid #000;
+  .glass {
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-edge);
+    border-radius: 22px;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.09),
-      0 1px 0 rgba(255, 255, 255, 0.35);
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 0 0 1px rgba(46, 49, 50, 0.05),
+      var(--glass-shadow);
   }
 
-  /* The same object, in steel rather than painted black. */
-  .plate {
-    background: var(--steel-2);
-    border: 1px solid var(--rule-2);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.5),
-      0 1px 0 rgba(255, 255, 255, 0.35);
-  }
-
-  .plate-head,
-  .rig-head {
+  .glass-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 0.5rem 0.875rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--rule);
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 10px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-  }
-
-  .plate-head {
-    border-bottom: 1px solid var(--rule-2);
     color: var(--ink-faint);
-    background: var(--steel-3);
   }
 
-  .rig-head {
-    border-bottom: 1px solid var(--panel-rule);
-    color: var(--panel-faint);
-    background: var(--panel-2);
+  /* The one dark object on the page. Used for emphasis, never for chrome. */
+  .slab {
+    background: var(--slate);
+    color: var(--slate-ink);
+    border-radius: 22px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      var(--glass-shadow);
   }
 
-  /*
-   * Four bolts, one per corner, drawn as background gradients rather than
-   * four elements — they are trim, and trim should not be in the a11y tree.
-   */
-  .bolted {
-    background-image:
-      radial-gradient(circle at 9px 9px, var(--rule-2) 0 1.5px, transparent 2px),
-      radial-gradient(
-        circle at calc(100% - 9px) 9px,
-        var(--rule-2) 0 1.5px,
-        transparent 2px
-      ),
-      radial-gradient(
-        circle at 9px calc(100% - 9px),
-        var(--rule-2) 0 1.5px,
-        transparent 2px
-      ),
-      radial-gradient(
-        circle at calc(100% - 9px) calc(100% - 9px),
-        var(--rule-2) 0 1.5px,
-        transparent 2px
-      );
+  .slab-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--slate-rule);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--slate-faint);
   }
 
-  /*
-   * Hazard stripes. Rationed hard: they appear on the disarmed launch control
-   * and nowhere else, because they mean one thing — this is roped off.
-   */
-  .hazard {
-    background-image: repeating-linear-gradient(
-      135deg,
-      var(--halt) 0 12px,
-      #1a1a1c 12px 24px
+  /* Status lamp. Colour AND a word, always — never colour alone. */
+  .lamp {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgba(46, 49, 50, 0.18);
+  }
+
+  .lamp-live {
+    background: #8fd43a;
+    box-shadow:
+      inset 0 0 0 1px rgba(46, 49, 50, 0.14),
+      0 0 0 3px rgba(143, 212, 58, 0.22);
+  }
+
+  .lamp-held {
+    background: linear-gradient(
+      160deg,
+      var(--chrome-1),
+      var(--chrome-3) 55%,
+      var(--chrome-4)
     );
   }
 
-  /* Brushed steel: two near-invisible line sets, not a texture image. */
-  .brushed {
-    background-image:
-      repeating-linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.16) 0 1px,
-        transparent 1px 3px
-      ),
-      repeating-linear-gradient(
-        to right,
-        rgba(19, 19, 22, 0.045) 0 1px,
-        transparent 1px 7px
-      );
+  /* Controls are pills. Nothing on this page has a square corner. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.85rem 1.5rem;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition:
+      transform 0.18s cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 0.18s ease-out,
+      background-color 0.18s ease-out;
   }
 
-  /* The line the stations hang off: a rail down the left of the page. */
+  .pill-dark {
+    background: var(--slate);
+    color: var(--slate-ink);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 10px 24px -14px rgba(38, 41, 42, 0.9);
+  }
+
+  .pill-dark:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: var(--slate-2);
+  }
+
+  .pill-lime {
+    background: linear-gradient(160deg, #e6fdb4, var(--lime));
+    color: #24400a;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 12px 26px -16px rgba(103, 145, 32, 0.9);
+  }
+
+  .pill-lime:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .pill-ghost {
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--ink);
+    border: 1px solid var(--rule-2);
+  }
+
+  .pill-ghost:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .pill:disabled {
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /*
+   * The held plate: the launch control while an interlock is open. Chrome
+   * hatching, not a hazard stripe — this page has no warning colour, so being
+   * held reads as an unfinished machined surface and says the word as well.
+   */
+  .held-plate {
+    background-image:
+      repeating-linear-gradient(
+        135deg,
+        rgba(46, 49, 50, 0.07) 0 10px,
+        rgba(46, 49, 50, 0) 10px 20px
+      ),
+      linear-gradient(160deg, var(--chrome-2), var(--chrome-3));
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .field {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--rule-2);
+    border-radius: 14px;
+    padding: 0.7rem 0.95rem;
+    color: var(--ink);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    transition:
+      border-color 0.15s ease-out,
+      box-shadow 0.15s ease-out;
+  }
+
+  .field::placeholder {
+    color: var(--ink-faint);
+  }
+
+  .field:hover {
+    border-color: rgba(46, 49, 50, 0.34);
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--lime-deep);
+    box-shadow: 0 0 0 3px rgba(143, 212, 58, 0.28);
+  }
+
+  .field-invalid {
+    border-color: rgba(46, 49, 50, 0.5);
+    background: rgba(46, 49, 50, 0.05);
+  }
+
+  /* The slider reads as a chrome rail with a glass thumb. */
+  .detent {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 24px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .detent::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--chrome-3), var(--chrome-2));
+    box-shadow: inset 0 1px 2px rgba(46, 49, 50, 0.18);
+  }
+
+  .detent::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--chrome-3), var(--chrome-2));
+  }
+
+  .detent::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -7px;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: linear-gradient(
+      160deg,
+      #ffffff 0%,
+      var(--chrome-2) 42%,
+      var(--chrome-4) 100%
+    );
+    border: 1px solid rgba(46, 49, 50, 0.22);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 1),
+      0 4px 10px -4px rgba(46, 49, 50, 0.5);
+  }
+
+  .detent::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: linear-gradient(160deg, #ffffff, var(--chrome-4));
+    border: 1px solid rgba(46, 49, 50, 0.22);
+  }
+
+  /* The line the stations hang off. */
   .rail {
     position: relative;
   }
@@ -279,117 +449,16 @@ body {
     content: "";
     position: absolute;
     left: 0;
-    top: 0;
-    bottom: 0;
+    top: 0.25rem;
+    bottom: 0.25rem;
     width: 1px;
-    background: var(--rule-2);
-  }
-
-  /* Status lamp. Colour AND a label always — never colour alone. */
-  .lamp {
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3) inset;
-  }
-
-  .field {
-    width: 100%;
-    background: var(--steel-2);
-    border: 1px solid var(--rule-2);
-    border-radius: 0;
-    padding: 0.625rem 0.75rem;
-    color: var(--ink);
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-variant-numeric: tabular-nums;
-    font-size: 13px;
-    box-shadow: inset 0 1px 2px rgba(19, 19, 22, 0.12);
-  }
-
-  .field::placeholder {
-    color: var(--ink-faint);
-  }
-
-  .field:hover {
-    border-color: var(--halt-ink);
-  }
-
-  .field-invalid {
-    border-color: var(--halt);
-    background: var(--halt-soft);
-  }
-
-  /* A machine control: square, heavy, and it moves when you press it. */
-  .control {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border: 1px solid #000;
-    background: var(--panel);
-    color: var(--panel-ink);
-    padding: 0.75rem 1.25rem;
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.1),
-      0 2px 0 rgba(19, 19, 22, 0.35);
-    transition:
-      transform 0.06s ease-out,
-      box-shadow 0.06s ease-out;
-  }
-
-  .control:active:not(:disabled) {
-    transform: translateY(2px);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-
-  .control:disabled {
-    cursor: not-allowed;
-  }
-
-  /* The slider is a machine detent, not a browser default. */
-  .detent {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 22px;
-    background: transparent;
-    cursor: pointer;
-  }
-
-  .detent::-webkit-slider-runnable-track {
-    height: 6px;
-    background: var(--steel-3);
-    border: 1px solid var(--rule-2);
-  }
-
-  .detent::-moz-range-track {
-    height: 6px;
-    background: var(--steel-3);
-    border: 1px solid var(--rule-2);
-  }
-
-  .detent::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    margin-top: -7px;
-    width: 14px;
-    height: 20px;
-    background: var(--panel);
-    border: 1px solid #000;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  }
-
-  .detent::-moz-range-thumb {
-    width: 14px;
-    height: 20px;
-    border-radius: 0;
-    background: var(--panel);
-    border: 1px solid #000;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--rule-2) 12%,
+      var(--rule-2) 88%,
+      transparent
+    );
   }
 
   /* FAQ disclosure. <details> so it works with JavaScript switched off. */
@@ -398,8 +467,8 @@ body {
     list-style: none;
     display: flex;
     align-items: baseline;
-    gap: 0.75rem;
-    padding: 1rem 0;
+    gap: 0.9rem;
+    padding: 1.15rem 0;
   }
 
   .qa > summary::-webkit-details-marker {
@@ -409,9 +478,9 @@ body {
   .qa > summary::after {
     content: "+";
     margin-left: auto;
-    color: var(--halt-ink);
+    color: var(--lime-deep);
     font-family: var(--font-mono), monospace;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1;
   }
 
@@ -434,17 +503,22 @@ body {
 }
 
 .animate-marquee {
-  animation: marquee 40s linear infinite;
+  animation: marquee 44s linear infinite;
 }
 
-@keyframes flow {
-  to {
-    stroke-dashoffset: -64;
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(2.5deg);
   }
 }
 
-.animate-flow {
-  animation: flow 1.8s linear infinite;
+/* The glass objects breathe. Slow enough that it reads as light, not motion. */
+.animate-drift {
+  animation: drift 14s ease-in-out infinite;
 }
 
 @keyframes blink {
@@ -454,18 +528,18 @@ body {
   }
   50%,
   100% {
-    opacity: 0;
+    opacity: 0.35;
   }
 }
 
 .animate-blink {
-  animation: blink 1.2s step-end infinite;
+  animation: blink 1.6s steps(1, end) infinite;
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -475,13 +549,13 @@ body {
 
 /* Entrance for above-the-fold content: CSS only, runs on load, no JS. */
 .rise {
-  animation: rise 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: rise 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 @keyframes reveal-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -524,7 +598,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .animate-marquee,
-  .animate-flow,
+  .animate-drift,
   .animate-blink {
     animation: none;
   }

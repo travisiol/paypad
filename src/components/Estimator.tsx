@@ -10,7 +10,7 @@ import {
   feeBounds,
   maxCreatorShareBps,
 } from "@/lib/economics";
-import { PlateHead } from "./ui/Section";
+import { GlassHead } from "./ui/Section";
 
 /**
  * Arithmetic, not a forecast.
@@ -36,25 +36,30 @@ export function Estimator() {
     }
   }
 
-  const amounts = parsed === null ? null : feeAmounts(parsed, tradeFeeBps, creatorShareBps);
+  const amounts =
+    parsed === null ? null : feeAmounts(parsed, tradeFeeBps, creatorShareBps);
 
   const rows = [
     { label: "Fee collected", value: amounts?.fee, tone: "text-ink" },
-    { label: "Buys the payout asset", value: amounts?.toHolders, tone: "text-live" },
+    {
+      label: "Buys the payout asset",
+      value: amounts?.toHolders,
+      tone: "text-lime-deep",
+    },
     { label: "To the creator", value: amounts?.toCreator, tone: "text-ink" },
-    { label: "To the protocol", value: amounts?.toPlatform, tone: "text-halt-ink" },
+    { label: "To the protocol", value: amounts?.toPlatform, tone: "text-ink" },
   ];
 
   return (
-    <div className="plate bolted">
-      <PlateHead title="Arithmetic" aside={<span>Not a forecast</span>} />
-      <div className="p-5">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div className="glass overflow-hidden">
+      <GlassHead title="Arithmetic" aside={<span>Not a forecast</span>} />
+      <div className="p-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <label className="block">
             <span className="label">Traded volume (ETH)</span>
             <input
               className={clsx(
-                "field mt-1.5",
+                "field mt-2",
                 trimmed.length > 0 && parsed === null && "field-invalid",
               )}
               value={volume}
@@ -62,14 +67,14 @@ export function Estimator() {
               placeholder="Type a number"
               inputMode="decimal"
             />
-            <span className="mono mt-1.5 block text-[10px] text-ink-faint">
+            <span className="mono mt-2 block text-[10px] text-ink-faint">
               {trimmed.length > 0 && parsed === null
                 ? "Not a number"
                 : "Over any period you like — the split does not depend on time"}
             </span>
           </label>
 
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
               <div className="flex items-baseline justify-between">
                 <span className="label">Trading fee</span>
@@ -111,22 +116,30 @@ export function Estimator() {
           </div>
         </div>
 
-        <dl className="mt-6 grid grid-cols-2 gap-px bg-rule-2 lg:grid-cols-4">
+        <dl className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {rows.map((row) => (
-            <div key={row.label} className="bg-steel-2 px-4 py-4">
-              <dt className="label">{row.label}</dt>
-              <dd className={clsx("mono num mt-2 text-[16px] break-all", row.tone)}>
-                {row.value === undefined || row.value === null ? (
-                  <span className="text-ink-faint">—</span>
-                ) : (
-                  `${trim(formatEther(row.value))} ETH`
-                )}
-              </dd>
-            </div>
+              <div
+                key={row.label}
+                className="rounded-2xl border border-rule bg-white/60 px-4 py-4"
+              >
+                <dt className="label">{row.label}</dt>
+                <dd
+                  className={clsx(
+                    "mono num mt-2.5 text-[16px] break-all",
+                    row.tone,
+                  )}
+                >
+                  {row.value === undefined || row.value === null ? (
+                    <span className="text-ink-faint">—</span>
+                  ) : (
+                    `${trim(formatEther(row.value))} ETH`
+                  )}
+                </dd>
+              </div>
           ))}
         </dl>
 
-        <p className="mt-4 text-[12px] leading-relaxed text-ink-faint">
+        <p className="mt-5 text-[12px] leading-relaxed text-ink-faint">
           Fees are collected in ETH and swapped into the payout asset, so what a
           holder actually receives depends on the price and the depth of that
           asset at the moment of the swap. Nothing here models that, because

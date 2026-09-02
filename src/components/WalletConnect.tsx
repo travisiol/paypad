@@ -35,7 +35,7 @@ export function WalletConnect({ className }: { className?: string }) {
           onClick={() => switchChain({ chainId: robinhoodChain.id })}
           disabled={isSwitching}
           className={clsx(
-            "mono border border-halt/50 bg-halt-soft px-3 py-2 text-[10px] tracking-[0.16em] text-halt-ink uppercase transition hover:bg-halt/15 disabled:opacity-60",
+            "mono rounded-full border border-rule-2 bg-white/80 px-4 py-2 text-[10px] tracking-[0.14em] text-ink uppercase transition hover:bg-white disabled:opacity-60",
             className,
           )}
         >
@@ -50,11 +50,11 @@ export function WalletConnect({ className }: { className?: string }) {
         onClick={() => disconnect()}
         title="Disconnect wallet"
         className={clsx(
-          "mono flex items-center gap-2 border border-rule-2 px-3 py-2 text-[10px] tracking-[0.16em] text-ink uppercase transition hover:border-halt-ink hover:text-halt-ink",
+          "mono flex items-center gap-2 rounded-full border border-lime-deep/25 bg-lime-pale/70 px-4 py-2 text-[10px] tracking-[0.14em] text-lime-deep uppercase transition hover:bg-lime-pale",
           className,
         )}
       >
-        <span aria-hidden className="lamp bg-live" />
+        <span aria-hidden className="lamp lamp-live" />
         {/* normal-case: an address must keep its EIP-55 casing */}
         <span className="num normal-case">{shortAddress(address)}</span>
       </button>
@@ -71,7 +71,7 @@ export function WalletConnect({ className }: { className?: string }) {
         onClick={() =>
           injectedConnector && connect({ connector: injectedConnector })
         }
-        className="mono border border-ink/70 bg-panel px-3 py-2 text-[10px] tracking-[0.16em] text-panel-ink uppercase transition hover:bg-panel-2 disabled:cursor-not-allowed disabled:border-rule disabled:bg-transparent disabled:text-ink-faint"
+        className="pill pill-dark px-4 py-2 text-[10px] disabled:opacity-50"
       >
         {isConnecting
           ? "Connecting…"
@@ -80,7 +80,7 @@ export function WalletConnect({ className }: { className?: string }) {
             : "No wallet found"}
       </button>
       {connectError && (
-        <span className="mono max-w-[220px] text-right text-[10px] leading-tight text-halt-ink">
+        <span className="mono max-w-[220px] text-right text-[10px] leading-tight text-ink-dim">
           {connectError.message}
         </span>
       )}

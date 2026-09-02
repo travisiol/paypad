@@ -3,10 +3,13 @@ import { ImageResponse } from "next/og";
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
+const CHROME =
+  "linear-gradient(160deg, #ffffff 0%, #f2f5f2 22%, #b9c2bb 52%, #8d968f 66%, #f2f5f2 88%, #ffffff 100%)";
+
 /**
- * The mark at favicon size: a pad, and a payload sitting on it. Built from
- * divs because ImageResponse renders a flexbox subset, not arbitrary SVG —
- * so the payload is a block rather than the nose cone the nav lockup draws.
+ * The mark at favicon size: the glass asterisk on the lime ground, built from
+ * three rotated bars because ImageResponse renders a flexbox subset — the
+ * stacked-stroke SVG the site uses does not survive the trip.
  */
 export default function Icon() {
   return new ImageResponse(
@@ -16,15 +19,27 @@ export default function Icon() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 5,
-          background: "#c7c6c1",
+          position: "relative",
+          background:
+            "linear-gradient(150deg, #ffffff 0%, #f2fce0 45%, #d5f78c 100%)",
         }}
       >
-        <div style={{ display: "flex", width: 20, height: 26, background: "#d93d0e" }} />
-        <div style={{ display: "flex", width: 44, height: 12, background: "#17181b" }} />
+        {[0, 60, 120].map((angle) => (
+          <div
+            key={angle}
+            style={{
+              position: "absolute",
+              display: "flex",
+              width: 11,
+              height: 50,
+              borderRadius: 999,
+              background: CHROME,
+              transform: `rotate(${angle}deg)`,
+            }}
+          />
+        ))}
       </div>
     ),
     { ...size },

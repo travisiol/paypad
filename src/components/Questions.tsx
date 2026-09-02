@@ -140,18 +140,18 @@ const questions: { q: string; a: React.ReactNode }[] = [
 
 export function Questions() {
   return (
-    <div className="divide-y divide-rule-2 border-y border-rule-2">
+    <div className="divide-y divide-rule border-y border-rule">
       {questions.map((item, index) => (
         <details key={item.q} className="qa">
           <summary>
             <span className="mono text-[11px] text-ink-faint">
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className="stencil text-[15px] tracking-[0.01em] sm:text-[17px]">
+            <span className="display text-[16px] tracking-[-0.02em] sm:text-[18px]">
               {item.q}
             </span>
           </summary>
-          <p className="max-w-3xl pb-5 pl-9 text-[14px] leading-relaxed text-ink-dim">
+          <p className="max-w-3xl pb-6 pl-9 text-[14px] leading-relaxed text-ink-dim">
             {item.a}
           </p>
         </details>

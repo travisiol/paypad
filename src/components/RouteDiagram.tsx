@@ -61,12 +61,19 @@ export function RouteDiagram({
       </defs>
 
       {/* trunk: a trade arrives, the fee is taken off it */}
-      <rect x="1" y="128" width="150" height="64" className="fill-panel stroke-black" />
+      <rect
+        x="1"
+        y="128"
+        width="150"
+        height="64"
+        rx="20"
+        className="fill-slate"
+      />
       <text
         x="76"
         y="154"
         textAnchor="middle"
-        className="mono fill-panel-faint text-[10px] tracking-[0.2em]"
+        className="mono fill-slate-faint text-[10px] tracking-[0.18em]"
       >
         INPUT
       </text>
@@ -74,13 +81,13 @@ export function RouteDiagram({
         x="76"
         y="177"
         textAnchor="middle"
-        className="mono fill-panel-ink text-[14px]"
+        className="mono fill-slate-ink text-[14px]"
       >
         ONE TRADE
       </text>
       <text
         x="76"
-        y="214"
+        y="216"
         textAnchor="middle"
         className="mono fill-ink-faint text-[9px]"
       >
@@ -88,7 +95,7 @@ export function RouteDiagram({
       </text>
 
       <line
-        x1="151"
+        x1="153"
         y1="160"
         x2="236"
         y2="160"
@@ -99,7 +106,7 @@ export function RouteDiagram({
         x="194"
         y="150"
         textAnchor="middle"
-        className="mono fill-halt-ink text-[11px]"
+        className="mono fill-lime-deep text-[11px]"
       >
         {bpsToPercent(tradeFeeBps)}
       </text>
@@ -107,25 +114,42 @@ export function RouteDiagram({
         x="194"
         y="180"
         textAnchor="middle"
-        className="mono fill-ink-faint text-[9px] tracking-[0.16em]"
+        className="mono fill-ink-faint text-[9px] tracking-[0.14em]"
       >
         FEE
       </text>
 
       {/* the splitter: shares are burned in at deploy and never move again */}
-      <rect x="240" y="112" width="112" height="96" className="fill-panel stroke-black" />
+      <rect
+        x="240"
+        y="112"
+        width="112"
+        height="96"
+        rx="26"
+        className="fill-slate"
+      />
       <text
         x="296"
-        y="140"
+        y="142"
         textAnchor="middle"
-        className="mono fill-panel-faint text-[10px] tracking-[0.2em]"
+        className="mono fill-slate-faint text-[10px] tracking-[0.18em]"
       >
         SPLIT
       </text>
-      <text x="296" y="166" textAnchor="middle" className="mono fill-panel-ink text-[12px]">
+      <text
+        x="296"
+        y="168"
+        textAnchor="middle"
+        className="mono fill-slate-ink text-[12px]"
+      >
         FIXED AT
       </text>
-      <text x="296" y="186" textAnchor="middle" className="mono fill-panel-ink text-[12px]">
+      <text
+        x="296"
+        y="188"
+        textAnchor="middle"
+        className="mono fill-slate-ink text-[12px]"
+      >
         DEPLOY
       </text>
 
@@ -133,36 +157,56 @@ export function RouteDiagram({
       <path
         d="M352 148 H430 V60 H520"
         fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         strokeWidth={gauge(split.holderShareBps)}
-        className="stroke-live opacity-25"
+        className="stroke-lime"
       />
-      <path d="M352 148 H430 V60 H520" fill="none" className="stroke-live" strokeWidth="1" />
-      <rect x="520" y="30" width="150" height="60" className="fill-steel-2 stroke-rule-2" />
+      <rect
+        x="520"
+        y="30"
+        width="150"
+        height="60"
+        rx="20"
+        className="fill-white/80 stroke-rule-2"
+      />
       <text
         x="595"
         y="54"
         textAnchor="middle"
-        className="mono fill-ink-faint text-[9px] tracking-[0.2em]"
+        className="mono fill-ink-faint text-[9px] tracking-[0.18em]"
       >
         BUY
       </text>
-      <text x="595" y="76" textAnchor="middle" className="mono fill-ink text-[13px]">
+      <text
+        x="595"
+        y="76"
+        textAnchor="middle"
+        className="mono fill-ink text-[13px]"
+      >
         {asset}
       </text>
       <line
-        x1="670"
+        x1="672"
         y1="60"
         x2="798"
         y2="60"
         className="stroke-rule-2"
         markerEnd="url(#rd-arrow)"
       />
-      <rect x="802" y="24" width="176" height="76" className="fill-panel stroke-black" />
+      <rect
+        x="802"
+        y="24"
+        width="176"
+        height="76"
+        rx="22"
+        className="fill-lime-pale stroke-lime-deep/25"
+      />
       <text
         x="890"
         y="46"
         textAnchor="middle"
-        className="mono fill-panel-faint text-[9px] tracking-[0.16em]"
+        className="mono fill-ink-faint text-[9px] tracking-[0.14em]"
       >
         HOLDERS · CLAIMABLE
       </text>
@@ -170,11 +214,16 @@ export function RouteDiagram({
         x="890"
         y="72"
         textAnchor="middle"
-        className="mono fill-live-bright text-[16px]"
+        className="mono fill-lime-deep text-[16px]"
       >
         {bpsToPercent(split.holderShareBps)}
       </text>
-      <text x="890" y="90" textAnchor="middle" className="mono fill-panel-faint text-[9px]">
+      <text
+        x="890"
+        y="90"
+        textAnchor="middle"
+        className="mono fill-ink-faint text-[9px]"
+      >
         {percentOfTrade(tradeFeeBps, split.holderShareBps)}% of the trade
       </text>
 
@@ -182,23 +231,40 @@ export function RouteDiagram({
       <path
         d="M352 160 H802"
         fill="none"
+        strokeLinecap="round"
         strokeWidth={gauge(split.creatorShareBps)}
-        className="stroke-ink opacity-20"
+        className="stroke-chrome-3"
       />
-      <path d="M352 160 H802" fill="none" className="stroke-rule-2" strokeWidth="1" />
-      <rect x="802" y="128" width="176" height="64" className="fill-steel-2 stroke-rule-2" />
+      <rect
+        x="802"
+        y="128"
+        width="176"
+        height="64"
+        rx="20"
+        className="fill-white/80 stroke-rule-2"
+      />
       <text
         x="890"
         y="150"
         textAnchor="middle"
-        className="mono fill-ink-faint text-[9px] tracking-[0.2em]"
+        className="mono fill-ink-faint text-[9px] tracking-[0.18em]"
       >
         CREATOR
       </text>
-      <text x="890" y="172" textAnchor="middle" className="mono fill-ink text-[16px]">
+      <text
+        x="890"
+        y="172"
+        textAnchor="middle"
+        className="mono fill-ink text-[16px]"
+      >
         {bpsToPercent(split.creatorShareBps)}
       </text>
-      <text x="890" y="187" textAnchor="middle" className="mono fill-ink-faint text-[9px]">
+      <text
+        x="890"
+        y="187"
+        textAnchor="middle"
+        className="mono fill-ink-faint text-[9px]"
+      >
         {percentOfTrade(tradeFeeBps, split.creatorShareBps)}% of the trade
       </text>
 
@@ -206,23 +272,41 @@ export function RouteDiagram({
       <path
         d="M352 172 H430 V262 H802"
         fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         strokeWidth={gauge(split.platformShareBps)}
-        className="stroke-halt opacity-30"
+        className="stroke-slate"
       />
-      <path d="M352 172 H430 V262 H802" fill="none" className="stroke-halt" strokeWidth="1" />
-      <rect x="802" y="230" width="176" height="66" className="fill-steel-2 stroke-halt" />
+      <rect
+        x="802"
+        y="230"
+        width="176"
+        height="66"
+        rx="20"
+        className="fill-slate"
+      />
       <text
         x="890"
         y="252"
         textAnchor="middle"
-        className="mono fill-halt-ink text-[9px] tracking-[0.2em]"
+        className="mono fill-slate-faint text-[9px] tracking-[0.18em]"
       >
         PROTOCOL
       </text>
-      <text x="890" y="274" textAnchor="middle" className="mono fill-halt-ink text-[16px]">
+      <text
+        x="890"
+        y="274"
+        textAnchor="middle"
+        className="mono fill-slate-ink text-[16px]"
+      >
         {bpsToPercent(split.platformShareBps)}
       </text>
-      <text x="890" y="290" textAnchor="middle" className="mono fill-ink-faint text-[9px]">
+      <text
+        x="890"
+        y="290"
+        textAnchor="middle"
+        className="mono fill-slate-faint text-[9px]"
+      >
         {percentOfTrade(tradeFeeBps, split.platformShareBps)}% of the trade
       </text>
     </svg>

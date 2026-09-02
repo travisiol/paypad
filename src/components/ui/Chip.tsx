@@ -1,42 +1,35 @@
 import { clsx } from "clsx";
 
-type Tone = "halt" | "live" | "muted" | "panel";
+type Tone = "neutral" | "held" | "live" | "slate";
 
 /**
- * The halt tone carries a lot of this site, on purpose: before a factory is
- * deployed, almost every state worth naming is "held".
+ * The held tone carries a lot of this site, on purpose: before a factory is
+ * deployed, almost every state worth naming is "held". It is chrome rather
+ * than a warning colour — grey is not a signal, so a held chip always says the
+ * word too, and colour is never the only thing carrying the state.
  */
 const tones: Record<Tone, string> = {
-  halt: "border-halt/45 bg-halt-soft text-halt-ink",
-  live: "border-live/40 bg-live-soft text-live",
-  muted: "border-rule-2 bg-steel-3/60 text-ink-faint",
-  panel: "border-panel-rule bg-panel-2 text-panel-dim",
-};
-
-const lamps: Record<Tone, string> = {
-  halt: "bg-halt",
-  live: "bg-live",
-  muted: "bg-ink-faint",
-  panel: "bg-panel-faint",
+  neutral: "border-rule-2 bg-white/55 text-ink-dim",
+  held: "border-rule-2 bg-white/70 text-ink-dim",
+  live: "border-lime-deep/25 bg-lime-pale/70 text-lime-deep",
+  slate: "border-slate-rule bg-white/10 text-slate-dim",
 };
 
 export function Chip({
   children,
-  tone = "muted",
+  tone = "neutral",
   lamp = false,
-  blink = false,
   className,
 }: {
   children: React.ReactNode;
   tone?: Tone;
   lamp?: boolean;
-  blink?: boolean;
   className?: string;
 }) {
   return (
     <span
       className={clsx(
-        "mono inline-flex items-center gap-1.5 border px-2 py-1 text-[10px] tracking-[0.16em] whitespace-nowrap uppercase",
+        "mono inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] tracking-[0.14em] whitespace-nowrap uppercase",
         tones[tone],
         className,
       )}
@@ -44,7 +37,11 @@ export function Chip({
       {lamp && (
         <span
           aria-hidden
-          className={clsx("lamp", lamps[tone], blink && "animate-blink")}
+          className={clsx(
+            "lamp",
+            tone === "live" ? "lamp-live" : "lamp-held",
+            tone === "held" && "animate-blink",
+          )}
         />
       )}
       {children}

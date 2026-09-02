@@ -129,6 +129,22 @@ is correct in that state — that is the point. `NEXT_PUBLIC_PAYPAD_LIVE=true`
 alone does nothing: `isLive` also needs a factory address, because without a
 factory there is nothing to launch from.
 
+## Art direction
+
+Glass and chrome on a white sheet that pools into lime at the corners, with
+hairline construction lines ruled underneath. Every chrome object —
+the asterisk mark, the hero arrow — is drawn in `src/components/Glass.tsx` as
+three stacked strokes along one path (dark rim, chrome body, offset white
+specular). There is not a single raster asset in the project.
+
+Colour is a semantic: **lime means real** — deployed, closed, reading from the
+chain — and chrome means held. Pre-launch almost nothing on the site is green,
+which is the point. There is deliberately no warning colour, so every held
+state also says the word: an interlock row carries OPEN or CLOSED as text next
+to its lamp, and the launch control is a hatched chrome plate reading HELD.
+
+Inter Tight for display, DM Mono for readouts.
+
 ## Notes to whoever picks this up
 
 - **The name is a placeholder.** RDAP on 2026-09-02: `paypad.com`, `.xyz`,
@@ -146,6 +162,15 @@ factory there is nothing to launch from.
 - **`process.env` is read by static member access only.** `process.env[name]`
   is not inlined into the client bundle, so every env override would silently
   fall back to its default.
+- **SVG gradients on the glass objects are `userSpaceOnUse`, and must stay so.**
+  Under the default `objectBoundingBox` a gradient resolves against each
+  element's own box, and a perfectly vertical stroke has a box of zero width —
+  which the spec says makes the element not render at all. The asterisk's
+  vertical arm and the arrow's shaft both vanished, and the mark rendered as an
+  X that looked like a design choice rather than a bug.
+- **Custom classes must not be named like a Tailwind utility.** An earlier pass
+  called the panel class `.block`; every `className="… block …"` picked up its
+  background and colour, and form labels rendered as solid bars.
 - **Scroll reveal is CSS-only** (`animation-timeline: view()` under
   `@supports`), with a `@media print` escape hatch — renderers that evaluate a
   scroll timeline at progress zero would otherwise paint every section at

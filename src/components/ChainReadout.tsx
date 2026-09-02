@@ -13,13 +13,18 @@ import { Chip } from "./ui/Chip";
  * It sits directly above the project's own counters, which are all zero. That
  * juxtaposition is the point: the chain is real and answering right now, the
  * launchpad on top of it is not deployed, and the page shows both rather than
- * borrowing the credibility of the one for the other.
+ * borrowing the credibility of the one for the other. It is also the only
+ * block on the site that is allowed to be green, because it is the only one
+ * reading something real.
  */
 export function ChainReadout() {
   const now = useNowSeconds();
 
-  const { data: blockNumber, dataUpdatedAt: blockAt, isError: blockError } =
-    useBlockNumber({ query: { refetchInterval: 6_000 } });
+  const {
+    data: blockNumber,
+    dataUpdatedAt: blockAt,
+    isError: blockError,
+  } = useBlockNumber({ query: { refetchInterval: 6_000 } });
   const { data: gasPrice } = useGasPrice({ query: { refetchInterval: 6_000 } });
 
   const connected = blockNumber !== undefined;
@@ -32,7 +37,8 @@ export function ChainReadout() {
     { label: "Chain", value: `${robinhoodChain.name} · ${robinhoodChain.id}` },
     {
       label: "Block height",
-      value: blockNumber !== undefined ? blockNumber.toLocaleString("en-US") : null,
+      value:
+        blockNumber !== undefined ? blockNumber.toLocaleString("en-US") : null,
     },
     {
       label: "Gas price",
@@ -48,27 +54,27 @@ export function ChainReadout() {
   ];
 
   return (
-    <div className="rig bolted">
-      <div className="rig-head">
+    <div className="glass overflow-hidden">
+      <div className="glass-head">
         <span>RPC · live</span>
         {blockError ? (
-          <Chip tone="halt" lamp>
+          <Chip tone="held" lamp>
             No answer
           </Chip>
         ) : connected ? (
-          <Chip tone="panel" lamp>
+          <Chip tone="live" lamp>
             Answering
           </Chip>
         ) : (
-          <Chip tone="panel">Reading…</Chip>
+          <Chip tone="held">Reading…</Chip>
         )}
       </div>
-      <dl className="grid grid-cols-2 gap-px bg-panel-rule sm:grid-cols-4">
+      <dl className="grid grid-cols-1 divide-y divide-rule sm:grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-y-0">
         {rows.map((row) => (
-          <div key={row.label} className="bg-panel px-4 py-4">
-            <dt className="label label-on-panel">{row.label}</dt>
-            <dd className="mono num mt-2 text-[13px] text-panel-ink">
-              {row.value ?? <span className="text-panel-faint">—</span>}
+          <div key={row.label} className="px-5 py-5">
+            <dt className="label">{row.label}</dt>
+            <dd className="mono num mt-2 text-[14px] text-ink">
+              {row.value ?? <span className="text-ink-faint">—</span>}
             </dd>
           </div>
         ))}

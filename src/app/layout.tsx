@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#c7c6c1",
+  themeColor: "#ffffff",
   colorScheme: "light",
 };
 
@@ -62,11 +62,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             the recommended place for one. */}
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="flex min-h-full flex-col bg-steel text-ink">
+      <body className="flex min-h-full flex-col text-ink">
         <a href="#main" className="skip-link">
           Skip to content
         </a>

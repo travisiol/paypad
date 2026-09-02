@@ -1,7 +1,7 @@
 import { explorer, launchConfig } from "@/lib/site-config";
 import { robinhoodChain } from "@/lib/chain";
 import { Chip } from "./ui/Chip";
-import { PlateHead } from "./ui/Section";
+import { GlassHead } from "./ui/Section";
 
 type Row = {
   label: string;
@@ -54,8 +54,8 @@ export function Verify() {
   ];
 
   return (
-    <div className="plate bolted">
-      <PlateHead
+    <div className="glass overflow-hidden">
+      <GlassHead
         title="Verification"
         aside={
           launchConfig.isLive ? (
@@ -63,7 +63,7 @@ export function Verify() {
               Armed
             </Chip>
           ) : (
-            <Chip tone="halt" lamp blink>
+            <Chip tone="held" lamp>
               Nothing deployed
             </Chip>
           )
@@ -73,7 +73,7 @@ export function Verify() {
         {rows.map((row) => (
           <div
             key={row.label}
-            className="grid grid-cols-1 gap-1 px-5 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-4"
+            className="grid grid-cols-1 gap-1 px-6 py-4 sm:grid-cols-[190px_minmax(0,1fr)] sm:gap-4"
           >
             <dt className="label pt-0.5">{row.label}</dt>
             <dd>
@@ -83,7 +83,7 @@ export function Verify() {
                     href={row.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="mono text-[12px] break-all text-ink underline decoration-rule-2 underline-offset-4 hover:text-halt-ink"
+                    className="mono text-[12px] break-all text-ink underline decoration-rule-2 underline-offset-4 hover:text-lime-deep"
                   >
                     {row.value}
                   </a>

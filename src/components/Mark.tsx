@@ -1,35 +1,19 @@
+import { GlassAsterisk } from "./Glass";
+
 /**
- * The mark: a launch pad seen head-on — a bolted plate with a payload sitting
- * on it and the hold-down clamps either side. Drawn, not lettered, so the
- * favicon and the nav lockup are the same object at two sizes.
+ * The mark: the glass asterisk, the same object at every size — but drawn flat
+ * in the lockup. At 30px the full treatment collapses into a grey blob; flat
+ * keeps the chrome gradient and drops the rim and specular that only read at
+ * size. See the note on GlassAsterisk.
  */
 export function Mark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden
+    <GlassAsterisk
+      id="mark"
       className={className}
-      shapeRendering="crispEdges"
-    >
-      {/* pad */}
-      <rect
-        x="2"
-        y="17"
-        width="20"
-        height="5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-      {/* hold-down clamps */}
-      <path d="M6 17V13M18 17V13" stroke="currentColor" strokeWidth="1.5" />
-      {/* payload */}
-      <path
-        d="M12 2 L16 10 V15 H8 V10 Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="miter"
-      />
-    </svg>
+      glow={false}
+      flat
+      strokeWidth={12}
+    />
   );
 }
