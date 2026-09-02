@@ -69,7 +69,7 @@ export function PadRegistry() {
           title="Registry"
           aside={
             <Chip tone="slate" lamp>
-              No factory
+              Awaiting launch
             </Chip>
           }
         />
@@ -77,9 +77,9 @@ export function PadRegistry() {
           <p className="mono num text-[72px] leading-none text-slate-ink">0</p>
           <p className="label label-on-slate mt-4">Pads launched</p>
           <p className="mx-auto mt-6 max-w-md text-[13px] leading-relaxed text-slate-dim">
-            This table reads the factory contract directly. No factory is
-            deployed, so there is nothing to read and nothing is shown — the
-            zero above is the absence of a contract, not a slow start.
+            This table reads the factory contract directly. It is awaiting
+            launch, so there is nothing to read yet — the zero above is the
+            absence of a contract, not a slow start.
           </p>
           <p className="mono mx-auto mt-4 max-w-md text-[11px] leading-relaxed text-slate-faint">
             When one exists, each row will carry the pad address, its payout

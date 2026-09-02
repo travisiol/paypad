@@ -477,7 +477,7 @@ export function LaunchConsole() {
           />
           <div className="px-5 py-4">
             <p className="mono text-[11px] break-all text-ink-faint">
-              {launchConfig.factoryAddress ?? "factory: not deployed"}
+              {launchConfig.factoryAddress ?? "factory: awaiting launch"}
             </p>
             <p className="mono mt-1.5 text-[12px] text-ink">createPad(</p>
             <dl className="mt-1.5 space-y-2 pl-3">
@@ -512,7 +512,7 @@ export function LaunchConsole() {
                 </Chip>
               ) : (
                 <Chip tone="held" lamp>
-                  Held
+                  Awaiting launch
                 </Chip>
               )
             }
@@ -535,11 +535,11 @@ export function LaunchConsole() {
               <div>
                 <div className="held-plate flex h-[92px] items-center justify-center">
                   <span className="mono text-[12px] tracking-[0.28em] text-ink-dim uppercase">
-                    Held
+                    Awaiting launch
                   </span>
                 </div>
                 <p className="mt-4 text-[12px] leading-relaxed text-ink-dim">
-                  {blocker ? `${blocker.label}: ${blocker.status}.` : "Held."}{" "}
+                  {blocker ? `${blocker.label}: ${blocker.status}.` : "Awaiting launch."}{" "}
                   <span className="text-ink-faint">
                     The control arms when every interlock closes.
                   </span>

@@ -121,8 +121,8 @@ export function interlocksFor(
       status: ctx.factoryAddress
         ? ctx.isLive
           ? "deployed and armed"
-          : "address set, launches held"
-        : "not deployed",
+          : "address set, launches still held"
+        : "awaiting launch",
       closed: ctx.isLive && ctx.factoryAddress !== null,
     },
     {

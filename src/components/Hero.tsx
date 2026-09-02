@@ -1,24 +1,38 @@
 import Link from "next/link";
+import { clsx } from "clsx";
 import { bpsToPercent, splitTerms } from "@/lib/economics";
 import { launchConfig, siteConfig } from "@/lib/site-config";
 import { robinhoodChain } from "@/lib/chain";
+import { emptyDraft, firstOpen, interlocksFor } from "@/lib/launch-plan";
+import { registryIsEmpty } from "@/lib/payout-assets";
 import { Chip } from "./ui/Chip";
 import { Readout } from "./ui/Section";
 import { DraftLines, GlassArrow, GlassAsterisk } from "./Glass";
 
 /**
- * The hero is the machine's own status panel, and it reads "held".
+ * The hero is the pad's own status panel, and it reads "awaiting launch".
  *
  * Every counter is a dash rather than a zero dressed up as traction, and the
- * launch control shows the held face it will show any creator whose interlocks
- * are open. The first thing a visitor learns about this launchpad is the state
- * it is actually in.
+ * strip under them is the real interlock chain — computed from the same
+ * function the console uses, on an empty draft, so the segments the home page
+ * lights are exactly the ones a visitor will find when they open `/launch`. A
+ * flat "held" plate sat here before and said nothing; this says which link is
+ * open and how many are left.
  *
  * The glass objects are decoration and are marked as such: aria-hidden,
  * pointer-events-none, and sitting behind the text rather than around it, so
  * nothing here competes with the sentence that has to be read first.
  */
 export function Hero() {
+  const interlocks = interlocksFor(emptyDraft, {
+    factoryAddress: launchConfig.factoryAddress,
+    isLive: launchConfig.isLive,
+    expectedChainId: robinhoodChain.id,
+    registryHasAssets: !registryIsEmpty,
+  });
+  const closed = interlocks.filter((interlock) => interlock.closed).length;
+  const blocker = firstOpen(interlocks);
+
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -44,7 +58,7 @@ export function Hero() {
               </Chip>
             ) : (
               <Chip tone="held" lamp>
-                No factory deployed
+                Awaiting launch
               </Chip>
             )}
           </div>
@@ -81,7 +95,7 @@ export function Hero() {
           <div className="glass-head">
             <span>Pad 000</span>
             <Chip tone="held" lamp>
-              Held
+              Awaiting launch
             </Chip>
           </div>
           <dl className="grid grid-cols-1 divide-y divide-rule sm:grid-cols-3 sm:divide-x sm:divide-y-0">
@@ -97,25 +111,45 @@ export function Hero() {
                     <Readout
                       value={null}
                       width="2.5rem"
-                      title="No factory deployed — nothing to read"
+                      title="Awaiting launch — nothing to read yet"
                     />
                   )}
                 </dd>
               </div>
             ))}
           </dl>
-          <div className="border-t border-rule p-5">
-            <div className="held-plate flex h-[96px] items-center justify-center">
-              <span className="mono text-[12px] tracking-[0.3em] text-ink-dim uppercase">
-                Launch held
+
+          <div className="border-t border-rule px-6 py-6">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <span className="label">Interlock chain</span>
+              <span className="mono num text-[11px] text-ink-faint">
+                {closed} of {interlocks.length} closed
               </span>
             </div>
+            <div
+              className="mt-3.5 flex gap-1.5"
+              role="img"
+              aria-label={`${closed} of ${interlocks.length} interlocks closed. The first open one is ${blocker?.label ?? "none"}.`}
+            >
+              {interlocks.map((interlock) => (
+                <span
+                  key={interlock.id}
+                  title={`${interlock.label} — ${interlock.status}`}
+                  className={clsx(
+                    "h-1.5 flex-1 rounded-full",
+                    interlock.closed
+                      ? "bg-gradient-to-b from-[#dcfa9c] to-[#a9dc4c]"
+                      : "bg-gradient-to-b from-[#e6eae7] to-[#c6cec9]",
+                  )}
+                />
+              ))}
+            </div>
             <p className="mt-4 text-[13px] leading-relaxed text-ink-dim">
-              Interlock 1 of 9 · <span className="text-ink">Factory</span> — not
-              deployed.{" "}
+              First open link · <span className="text-ink">{blocker?.label}</span>{" "}
+              — {blocker?.status}.{" "}
               <span className="text-ink-faint">
-                The console runs anyway: fill it in, see the exact call, watch
-                the chain refuse it.
+                The console runs anyway: fill it in, watch the segments close,
+                read the exact call it would send.
               </span>
             </p>
           </div>

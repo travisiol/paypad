@@ -31,7 +31,7 @@ export function Footer() {
                 </Chip>
               ) : (
                 <Chip tone="held" lamp>
-                  No factory deployed
+                  Awaiting launch
                 </Chip>
               )}
             </div>
@@ -77,7 +77,8 @@ export function Footer() {
             advice. A pad distributes exposure to whatever asset it is pointed
             at; where that asset is a tokenized equity, distributing it may be a
             regulated activity in your jurisdiction and is your responsibility,
-            not the protocol&rsquo;s. No factory is deployed and no pad exists.
+            not the protocol&rsquo;s. This launchpad is awaiting launch: no
+            factory is deployed and no pad exists yet.
           </p>
         </div>
       </div>

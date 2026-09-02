@@ -23,7 +23,7 @@ export default function LaunchPage() {
             </Chip>
           ) : (
             <Chip tone="held" lamp>
-              Launches held
+              Awaiting launch
             </Chip>
           )
         }

@@ -64,7 +64,7 @@ export function Verify() {
             </Chip>
           ) : (
             <Chip tone="held" lamp>
-              Nothing deployed
+              Awaiting launch
             </Chip>
           )
         }

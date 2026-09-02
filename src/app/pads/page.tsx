@@ -26,7 +26,7 @@ export default function PadsPage() {
             </Chip>
           ) : (
             <Chip tone="held" lamp>
-              No factory
+              Awaiting launch
             </Chip>
           )
         }
